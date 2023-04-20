@@ -115,11 +115,30 @@ def get_today_news():
 
             # Extract the news
             news = row.select_one('.calendar__event-title').get_text(strip=True)
+            try:
+                forecast = row.find('td', {'class': 'calendar__forecast'}).span.text.strip()
+                    # print(forecast)
+            except AttributeError:
+                    forecast = ''
+            try:
+                 actual = row.find('td', {'class': 'calendar__actual'}).span.text.strip()
+                    # print(actual)
+            except AttributeError:
+                    actual = ''
+            try:
+                previous = row.find('td', {'class': 'calendar__previous'}).span.text.strip()
+                # print(previous)
+            except AttributeError:
+                previous = ''
 
             print(f"\nTime: {time}")
             print(f"Currency: {currency}")
             print(f"Impact: {impact}")
-            print(f"News: {news}\n")
+            print(f"News: {news}")
+            print(f"Forcast: {forecast}")
+            print(f"Actual : {actual}")
+            print(f"Previous: {previous}\n")
+
             if time != '':
                 recent.append(time[5:])
         return status_code
